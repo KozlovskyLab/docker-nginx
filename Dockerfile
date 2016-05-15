@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends libssl1.0.2 $BUILD_DEPENDENCIES && \
     rm -rf /var/lib/apt/lists/*
 
-ENV NGINX_VERSION 1.9.14
+ENV NGINX_VERSION 1.9.15
 
 # apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
 
