@@ -4,8 +4,8 @@ Dockerizing Nginx
 
 :Author: Vladimir Kozlovski
 :Contact: inbox@vladkozlovski.com
-:Issues: https://github.com/vkozlovski/docker-nginx/issues
-:Docker image: https://hub.docker.com/r/vkozlovski/nginx/
+:Issues: https://github.com/kozlovskistudio/docker-nginx/issues
+:Docker image: https://hub.docker.com/r/kozlovskistudio/nginx/
 :Description: Dockerfile to build a Nginx container image which can be 
               linked to other containers.
 

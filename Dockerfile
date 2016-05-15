@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV BUILD_DEPENDENCIES wget libpcre3-dev libssl-dev gcc make
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends $BUILD_DEPENDENCIES && \
+    apt-get install -y --no-install-recommends libssl1.0.2 $BUILD_DEPENDENCIES && \
     rm -rf /var/lib/apt/lists/*
 
 ENV NGINX_VERSION 1.9.8
