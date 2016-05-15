@@ -1,9 +1,21 @@
-FROM alpine:latest
+FROM debian:testing
 MAINTAINER Vladimir Kozlovski <inbox@vladkozlovski.com>
+ENV DEBIAN_FRONTEND noninteractive
 
-ENV NGINX_VERSION 1.9.7
+ENV BUILD_DEPENDENCIES wget libpcre3-dev libssl-dev gcc make
 
-RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends $BUILD_DEPENDENCIES && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV NGINX_VERSION 1.9.8
+
+# apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
+
+RUN \
+    apt-get update -y && \
+    apt-get install -y ${BUILD_DEPENDENCIES} --no-install-recommends && \
+
     mkdir -p /tmp/src && \
     cd /tmp/src && \
     wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
@@ -21,9 +33,11 @@ RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
         --sbin-path=/usr/local/sbin/nginx && \
     make && \
     make install && \
-    apk del build-base && \
+
+    # cleanup
     rm -rf /tmp/src && \
-    rm -rf /var/cache/apk/*
+    apt-get purge -y --auto-remove ${BUILD_DEPENDENCIES} && \
+    rm -rf /var/lib/apt/lists/*
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
