@@ -1,19 +1,9 @@
-FROM debian:testing
+FROM janeczku/alpine-kubernetes:latest
 MAINTAINER Vladimir Kozlovski <inbox@vladkozlovski.com>
-ENV DEBIAN_FRONTEND noninteractive
-
-ENV BUILD_DEPENDENCIES wget libpcre3-dev libssl-dev gcc make
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libssl1.1 zlib1g-dev $BUILD_DEPENDENCIES && \
-    rm -rf /var/lib/apt/lists/*
 
 ENV NGINX_VERSION 1.10.2
 
-RUN \
-    apt-get update -y && \
-    apt-get install -y ${BUILD_DEPENDENCIES} --no-install-recommends && \
-
+RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
     mkdir -p /tmp/src && \
     cd /tmp/src && \
     wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz && \
@@ -31,17 +21,13 @@ RUN \
         --sbin-path=/usr/local/sbin/nginx && \
     make && \
     make install && \
-
-    # cleanup
+    apk del build-base && \
     rm -rf /tmp/src && \
-    apt-get purge -y --auto-remove ${BUILD_DEPENDENCIES} && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/cache/apk/*
 
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
-
-VOLUME ["/var/log/nginx"]
 
 # Added 25, 587 ports to expose for mail proxy
 EXPOSE 80 443 25 587
