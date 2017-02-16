@@ -1,7 +1,7 @@
-FROM janeczku/alpine-kubernetes:latest
-MAINTAINER Vladimir Kozlovski <inbox@vladkozlovski.com>
+FROM alpine:latest
+MAINTAINER Vladimir Kozlovski <vladimir@kozlovskilab.com>
 
-ENV NGINX_VERSION 1.10.2
+ENV NGINX_VERSION 1.10.3
 
 RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
     mkdir -p /tmp/src && \
