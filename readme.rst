@@ -2,6 +2,11 @@
 Dockerizing Nginx
 =================
 
+.. image:: https://git.kozlovskilab.com/kozlovskilab/nginx/badges/master/build.svg
+   :target: https://git.kozlovskilab.com/kozlovskilab/nginx/commits/master
+   :alt: build status
+|
+
 :Author: Vladimir Kozlovski
 :Contact: vladimir@kozlovskilab.com
 :Issues: https://github.com/kozlovskilab/docker-nginx/issues
