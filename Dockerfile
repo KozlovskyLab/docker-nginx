@@ -1,7 +1,7 @@
 FROM alpine:latest
 MAINTAINER Vladimir Kozlovski <vladimir@kozlovskilab.com>
 
-ENV NGINX_VERSION 1.12.0
+ENV NGINX_VERSION 1.12.1
 
 RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
     mkdir -p /tmp/src && \
